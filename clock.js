@@ -4,10 +4,12 @@ function clockJS() {
 
 	var elClock = document.getElementById('clock'),
 		elOptions = document.getElementById('options'),
-		timeFormatID = 'timeFormat';
+		timeFormatId = 'timeFormat',
+		use24format = false;
 	
 	//Initialize
 	CreateTimeFormatOption(); //Options must be added before display for hourformat to work
+	AddHourFormatEventListener();
 	DisplayTime();  //Added to avoid delay from setInterval on load
 	StartClock();	
 
@@ -20,13 +22,21 @@ function clockJS() {
 		elClock.innerHTML = hours + ":" + minutes + ":" + seconds;
 	}
 
+	function AddHourFormatEventListener() {
+		elOptions.onclick = function() {
+			use24format = Is24HourFormat();
+			//Call displaytime again to instant refresh the clock instead of waiting for next interval
+			DisplayTime();
+		};
+	}
+
 	function CreateTimeFormatOption() {
 		var elTimeFormat = document.createElement('input');
-		elTimeFormat.id = timeFormatID;
+		elTimeFormat.id = timeFormatId;
 		elTimeFormat.type = 'checkbox';
 
 		var label = document.createElement('label');
-		label.htmlFor = timeFormatID;
+		label.htmlFor = timeFormatId;
 		label.appendChild(elTimeFormat);
 		label.appendChild(document.createTextNode('24 Hour time format'));
 
@@ -39,7 +49,7 @@ function clockJS() {
 	}
 
 	function Is24HourFormat() {
-		var elHourFormat = document.getElementById(timeFormatID);
+		var elHourFormat = document.getElementById(timeFormatId);
 		if (elHourFormat) {
 			return elHourFormat.checked;
 		}
@@ -51,7 +61,7 @@ function clockJS() {
 
 	function HourFormat(hour) {
 		//Default JS Date object format is 24 hours
-		if (!Is24HourFormat()) {
+		if (!use24format) {
 			//Midnight
 			if (hour === 0) {
 				hour = 12;
