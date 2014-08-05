@@ -15,7 +15,7 @@ function clockJS() {
 
 	function DisplayTime() {
 		var time = new Date();
-		var hours = HourFormat(time.getHours()); //I don't like that I'm grabbing the timeformat element every second.  Want to redo this eventually
+		var hours = HourFormat(time.getHours());
 		var minutes = FormatBelowTen(time.getMinutes());
 		var seconds = FormatBelowTen(time.getSeconds());
 
@@ -25,7 +25,7 @@ function clockJS() {
 	function AddHourFormatEventListener() {
 		elOptions.onclick = function() {
 			use24format = Is24HourFormat();
-			//Call displaytime again to instant refresh the clock instead of waiting for next interval
+			//Call displaytime again to instantly refresh the clock instead of waiting for next interval
 			DisplayTime();
 		};
 	}
