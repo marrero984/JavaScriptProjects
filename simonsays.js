@@ -28,11 +28,11 @@ function SimonSays() {
 
 	function getColorClicked() {
 		//If color doesn't match Simon's reset all
+		//Ideally would be broken out into a separate function to be reused by a reset button
 		if (colors.indexOf(this.id) !== simonColors[clickCounter]) {
-			statusDisplay.innerHTML = "Wrong";
+			statusDisplay.innerHTML = "Wrong  <br/>";
 			simonColors = [];
 			clickCounter = 0;
-			statusDisplay.innerHTML = "";
 			statusDisplay.appendChild(startBttn);
 		}
 		//If correct and number of clicks is less than number of Simon's colors, 
